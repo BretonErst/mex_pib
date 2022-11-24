@@ -45,8 +45,9 @@ df02 <- df01 %>%
   relocate(fecha, .before = everything())
 
 
+file.remove("file.xlsx")
 
-
+rm(df00)
 
 
 
