@@ -19,6 +19,10 @@ model_lineal <- lm(valor ~ fecha,
                    data = df02 %>% 
                      filter(fecha < "2018-07-02"))
 
+## último periodo
+df02 %>% 
+  slice_max(order_by = fecha, n = 1) 
+
 
 ## visualización previa
 df02 %>% 
@@ -70,7 +74,7 @@ df04 <- df03 %>%
   unnest(everything())
 
 
-
+## visualización de valores escalados
 df04 %>% 
   drop_na(valor) %>% 
   ggplot(aes(x = trimestre_sexenio, y = escalado, color = presidente)) +
