@@ -99,7 +99,7 @@ df04 %>%
        y = "Índice: 0 = día 1 de cada sexenio",
        caption = "Fuente: INEGI, 
          Producto Interno Bruto trimestral, Base 2013, 
-         series desestacionalizadas. Último registro: 3T 2022.<br>
+         series desestacionalizadas. Último registro: 4T 2022.<br>
          Visualización: Juan L. Bretón, PMP | @BretonPmp" )
 
 ggsave("figures/graf01.jpg", plot = last_plot())
