@@ -106,9 +106,16 @@ ggsave("figures/graf01.jpg", plot = last_plot())
 
 
 
+# cambio con el año anterior
+val_ante <- df02 %>%
+  filter(fecha == max(fecha) - years(1)) %>% pull(valor)
 
+val_actual <- df02 %>%
+  filter(fecha == max(fecha)) %>% pull(valor)
 
-
+as_tibble((val_actual - val_ante) / val_ante) %>% 
+  knitr::kable(digits = 6, 
+               col.names = "Cambio respecto al año anterior")
 
 
 
