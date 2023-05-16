@@ -183,12 +183,23 @@ df02 %>%
 ggsave("figures/lob_02.jpg", device = "jpeg", dpi = "retina")
 
 
+# valor máximo de la serie
+max_serie <- 
+  df02 %>% 
+  slice_max(order_by = valor) %>% 
+  pull(valor)
 
 
+max_anterior <- 
+  df02 %>% 
+  slice_max(order_by = valor, n = 2) %>% 
+  pull(valor) %>% 
+  .[2]
+
+ante_pande <- 
+  df02 %>% 
+  filter(fecha_final == as_date("2019-12-31")) %>% 
+  pull(valor)
 
 
-
-
-
-
-
+(max_serie - ante_pande) / ante_pande
