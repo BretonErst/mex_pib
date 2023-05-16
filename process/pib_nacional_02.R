@@ -100,7 +100,7 @@ df04 %>%
          caption = "Fuente: INEGI, 
            Producto Interno Bruto trimestral, Base 2013, 
            series desestacionalizadas. Último registro: 4T 2022.<br>
-           Visualización: Juan L. Bretón, PMP | @BretonPmp" ) +
+           Visualización: Juan L. Bretón, PMP | @jluisbreton" ) +
     scale_x_continuous(breaks = round(seq(min(df04$trimestre_sexenio),
                                           max(df04$trimestre_sexenio),
                                           length.out = 24),
