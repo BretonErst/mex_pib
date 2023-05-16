@@ -16,16 +16,18 @@ suppressWarnings(source("cleaned/data_ready_quarter_national.R"))
 
 
 ## modelo lineal
-model_lineal <- lm(valor ~ fecha, 
-                   data = df02 %>% 
-                     filter(fecha < "2018-10-02"))
+model_lineal <- 
+  lm(valor ~ fecha_final, 
+     data = df02 %>% 
+       filter(fecha_final < "2018-10-02"))
 
 ## último periodo
 df02 %>% 
   slice_max(order_by = fecha, n = 1) 
 
 # cambio respecto a tendendcia
-pct_1 <- df02 %>% 
+pct_1 <- 
+  df02 %>% 
   mutate(predi = predict(model_lineal, 
                          newdata = .)) %>% 
   summarize(pct_perdida = (last(.) %>% pull(valor) - last(.) %>% pull(predi)) /
@@ -37,10 +39,10 @@ pct_1 <- df02 %>%
 df02 %>% 
   mutate(predi = predict(model_lineal, 
                          newdata = .)) %>% 
-  ggplot(aes(x = fecha, 
+  ggplot(aes(x = fecha_final, 
              y = valor)) +
   geom_rect(xmin = as_date("2018-07-02"),
-            xmax = max(df02$fecha),
+            xmax = max(df02$fecha_final),
             ymin = -Inf,
             ymax = Inf, 
             fill = "#F7F0E0", 
@@ -83,12 +85,12 @@ df02 %>%
        x = NULL,
        y = "Miles de millones de pesos (precios de 2013)",
        caption = "Fuente: INEGI, 
-           Producto Interno Bruto Trimestral., 
+           Producto Interno Bruto Trimestral, 
            series desestacionalizadas. Miles de millones de pesos a precios de 2013.<br>
            Visualización: Juan L. Bretón, PMP | @BretonPmp") +
   scale_x_date(date_labels = "%Y",
-               breaks = seq.Date(from = min(df02$fecha),
-                                 to = max(df02$fecha) + 1,
+               breaks = seq.Date(from = min(df02$fecha_final),
+                                 to = max(df02$fecha_final) + 1,
                                  by = "4 year")) +
   scale_y_continuous(limits = c(min(df02$valor) - 0.1e6,
                                 max(df02$valor) + 1e6),
@@ -99,13 +101,15 @@ ggsave("figures/lob_01.jpg", device = "jpeg", dpi = "retina")
 
 
 ## modelo lineal ultimos 10 años
-model_lineal_2 <- lm(valor ~ fecha, 
-                     data = df02 %>% 
-                       filter(fecha >= "2012-01-01" & fecha < "2018-10-02"))
+model_lineal_2 <- 
+  lm(valor ~ fecha_final, 
+     data = df02 %>% 
+       filter(fecha >= "2012-01-01" & fecha < "2018-10-02"))
 
 
 # cambio respecto a tendendcia
-pct_2 <- df02 %>% 
+pct_2 <- 
+  df02 %>% 
   mutate(predi = predict(model_lineal_2, 
                          newdata = .)) %>% 
   summarize(pct_perdida = (last(.) %>% pull(valor) - last(.) %>% pull(predi)) /
@@ -119,10 +123,10 @@ df02 %>%
   filter(fecha >= "2012-01-01") %>% 
   mutate(predi = predict(model_lineal_2, 
                          newdata = .)) %>% 
-  ggplot(aes(x = fecha, 
+  ggplot(aes(x = fecha_final, 
              y = valor)) +
   geom_rect(xmin = as_date("2018-07-02"),
-            xmax = max(df02$fecha),
+            xmax = max(df02$fecha_final),
             ymin = -Inf,
             ymax = Inf, 
             fill = "#F7F0E0", 
@@ -144,7 +148,7 @@ df02 %>%
            family = "Encode Sans Condensed") +
   annotate(geom = "text",
            label = scales::percent(pct_2, accuracy = 0.1),
-           x = as_date("2022-06-25"),
+           x = as_date("2022-09-25"),
            y = 1.925e7, 
            angle = 0,
            size = 3.3, 
@@ -170,7 +174,7 @@ df02 %>%
            Visualización: Juan L. Bretón, PMP | @BretonPmp") +
   scale_x_date(date_labels = "%Y",
                breaks = seq.Date(from = as_date("2012-01-01"),
-                                 to = max(df02$fecha) + 1,
+                                 to = max(df02$fecha_final) + 1,
                                  by = "1 year")) +
   scale_y_continuous(limits = c(1.49e7,
                                 max(df02$valor) + 2e6),
