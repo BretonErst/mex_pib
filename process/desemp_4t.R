@@ -87,7 +87,7 @@ df02 %>%
        caption = "Fuente: INEGI, 
            Producto Interno Bruto Trimestral, 
            series desestacionalizadas. Miles de millones de pesos a precios de 2013.<br>
-           Visualización: Juan L. Bretón, PMP | @BretonPmp") +
+           Visualización: Juan L. Bretón, PMP | @jluisbreton") +
   scale_x_date(date_labels = "%Y",
                breaks = seq.Date(from = min(df02$fecha_final),
                                  to = max(df02$fecha_final) + 1,
@@ -171,7 +171,7 @@ df02 %>%
        caption = "Fuente: INEGI, 
            Producto Interno Bruto Trimestral., 
            series desestacionalizadas. Miles de millones de pesos a precios de 2013.<br>
-           Visualización: Juan L. Bretón, PMP | @BretonPmp") +
+           Visualización: Juan L. Bretón, PMP | @jluisbreton") +
   scale_x_date(date_labels = "%Y",
                breaks = seq.Date(from = as_date("2012-01-01"),
                                  to = max(df02$fecha_final) + 1,
