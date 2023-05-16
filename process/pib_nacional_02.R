@@ -103,7 +103,7 @@ df04 %>%
            Visualización: Juan L. Bretón, PMP | @BretonPmp" ) +
     scale_x_continuous(breaks = round(seq(min(df04$trimestre_sexenio),
                                           max(df04$trimestre_sexenio),
-                                          length.out = 8),
+                                          length.out = 24),
                                       digits = 0))
 
 ggsave("figures/graf01.jpg", plot = last_plot(), device = "jpeg", dpi = "retina")
