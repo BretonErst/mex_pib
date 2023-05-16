@@ -178,3 +178,13 @@ df02 %>%
 
 ggsave("figures/lob_02.jpg", device = "jpeg", dpi = "retina")
 
+
+
+
+
+
+
+
+
+
+
