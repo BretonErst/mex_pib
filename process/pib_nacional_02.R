@@ -99,7 +99,7 @@ df04 %>%
          y = "Índice: 0 = trimestre 1 de cada sexenio",
          caption = "Fuente: INEGI, 
            Producto Interno Bruto trimestral, Base 2013, 
-           series desestacionalizadas. Último registro: 4T 2022.<br>
+           series desestacionalizadas. Último registro: 1T 2023.<br>
            Visualización: Juan L. Bretón, PMP | @jluisbreton" ) +
     scale_x_continuous(breaks = round(seq(min(df04$trimestre_sexenio),
                                           max(df04$trimestre_sexenio),
