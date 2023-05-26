@@ -93,7 +93,7 @@ df04 %>%
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0),
           legend.position = "top") +
-    labs(title = "Desempeño del PIB en cada Periodo Presidencial",
+    labs(title = "Desempeño de la Economía en cada Periodo Presidencial",
          subtitle = "Producto Interno Bruto, base 2013",
          x = "Trimestres del Sexenio",
          y = "Índice: 0 = trimestre 1 de cada sexenio",
@@ -122,3 +122,10 @@ as_tibble((val_actual - val_ante) / val_ante) %>%
                col.names = "Cambio respecto al año anterior")
 
 
+# cambio en el sexenio
+df04 %>% 
+  slice_max(order_by = fecha_final, n = 1) %>% 
+  pull(escalado) %>% 
+  as_tibble() %>% 
+  knitr::kable(digits = 4, 
+               col.names = "Cambio respecto al inicio del sexenio")
