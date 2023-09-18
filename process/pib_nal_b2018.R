@@ -65,7 +65,7 @@ df_pib |>
   #          color = "grey30",
   #          size = 3.0) +
   labs(title = "Desempeño Histórico de la Economía Mexicana",
-       subtitle = "Producto Interno Bruto.\nLa línea roja refleja la tendencia hasta la última elección presidencial.",
+       subtitle = "Producto Interno Bruto. La línea roja refleja la tendencia hasta la última elección presidencial.",
        x = "Año.Trimestre",
        y = "Miles de millones de pesos",
        caption = "Fuente: INEGI, 
@@ -233,6 +233,15 @@ df_tasa_sexenal |>
             vjust = -1.00,
             hjust = -0.25,
             color = "grey10") +
+  geom_hline(yintercept = mean(df_tasa_sexenal$tasa_promedio),
+             color = "grey60", linewidth = 2.5, alpha = 0.25) +
+  annotate(geom = "text",
+           x = 0.65, 
+           y = mean(df_tasa_sexenal$tasa_promedio),
+           label = scales::percent(mean(df_tasa_sexenal$tasa_promedio),
+                                   accuracy = 0.01),
+           size = 2.5,
+           color = "grey45") +
   labs(title = "Tasa Promedio de Crecimiento de la Economía",
        subtitle = "Por año durante el sexenio de cada Presidente.",
        x = NULL,
@@ -251,7 +260,9 @@ df_tasa_sexenal |>
 ggsave("figures/pib18_03.jpg", device = "jpeg", dpi = "retina")
 
 
-
+df_tasa_sexenal |> 
+  filter(presidente != "López") |> 
+  summarize(media_medias = mean(tasa_promedio))
 
 
 
