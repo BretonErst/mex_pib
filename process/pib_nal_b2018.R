@@ -8,7 +8,7 @@
 # Librerías
 library(tidyverse)
 library(ggtext)
-library(displayBreton)
+library(styleBreton)
 
 
 # Adquisición de datos
