@@ -5,54 +5,58 @@
 ###############################################
 
 
-# Librerías
+## Librerías
 library(tidyverse)
-library(ggtext)
 library(styleBreton)
 
 
-# Adquisición de datos
-suppressWarnings(source("cleaned/data_2018.R", echo = FALSE))
+## Adquisición de datos
+suppressWarnings(source("cleaned/data_2018.R", 
+                        echo = FALSE))
 
 
-# Tendencia lineal
+## Tendencia lineal del PIB
+# serie de PIB
 df_pib <- 
   df02 |> 
   filter(denominacion == "Producto interno bruto")
 
 
+# tendencia lineal hasta elección presidencial
 tendencia <- 
   df_pib |>
   filter(fecha_inicio < "2018-07-02") |> 
   lm(formula = valor ~ fecha_inicio, 
      data = _)
   
-max_pred <- 
-  df_pib |> 
-  mutate(predi = predict(tendencia, newdata = df_pib)) |> 
-  slice_max(order_by = fecha_final) |> 
-  pull(predi)
+# # valor máximo de la tendencia
+# max_pred <- 
+#   df_pib |> 
+#   mutate(predi = predict(tendencia, newdata = df_pib)) |> 
+#   slice_max(order_by = fecha_final) |> 
+#   pull(predi)
 
-actual <- 
-  df_pib_escala |> 
-  slice_max(order_by = fecha_final) |> 
-  pull(valor)
-
-dif_tend <- 
-  (actual -max_pred) / max_pred
-
-identical(max_pred * dif_tend + max_pred, actual)
+# # valor último de la tendencia
+# actual <- 
+#   df_pib_escala |> 
+#   slice_max(order_by = fecha_final) |> 
+#   pull(valor)
+# 
+# dif_tend <- 
+#   (actual -max_pred) / max_pred
+# 
+# identical(max_pred * dif_tend + max_pred, actual)
 
 
 # Visualización de la serie con tendencia
 df_pib |> 
-  mutate(predi = predict(tendencia, newdata = df_pib)) |>  
+  mutate(predic = predict(tendencia, newdata = df_pib)) |>
   ggplot(aes(x = trimestre, 
              y = valor)) +
   geom_line(aes(color = "pib"),
             alpha = 0.8,
             linewidth = 0.65) +
-  geom_smooth(aes(y = predi, 
+  geom_smooth(aes(y = predic, 
                   color = "tendencia"),
               linewidth = 0.35, 
               method = "lm") +
@@ -65,9 +69,9 @@ df_pib |>
   #          color = "grey30",
   #          size = 3.0) +
   labs(title = "Desempeño Histórico de la Economía Mexicana",
-       subtitle = "Producto Interno Bruto. La línea roja refleja la tendencia hasta la última elección presidencial.",
+       subtitle = "La línea roja refleja la tendencia histórica hasta la última elección presidencial.",
        x = "Año.Trimestre",
-       y = "Miles de millones de pesos",
+       y = "PIB (Miles de millones de pesos)",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Miles de millones de pesos a precios de 2018. 
            Series desestacionalizadas.<br>
@@ -82,13 +86,13 @@ df_pib |>
                                                     scale = 1 / 1e3)) +
   scale_x_continuous(breaks = seq(min(df_pib$trimestre),
                                   max(df_pib$trimestre),
-                                  by = 5))
+                                  by = 6))
   
 ggsave("figures/pib18_01.jpg", device = "jpeg", dpi = "retina")
 
 
 
-# Escalamiento de la serie por sexenio
+## Escalamiento de la serie por sexenio
 # Función de escalamiento a 0
 escalar_serie <- function(df){
   fact <- df |> 
@@ -226,7 +230,7 @@ df_tasa_sexenal |>
   geom_segment(aes(x = presidente, xend = presidente, 
                    y = 0, yend = tasa_promedio),
                alpha = 0.4,
-               linewidth = 1.3) +
+               linewidth = 2.3) +
   geom_text(aes(label = scales::percent(tasa_promedio, accuracy = 0.01)),
             family = "Encode Sans Condensed",
             size = 2.8,
@@ -242,8 +246,8 @@ df_tasa_sexenal |>
                                    accuracy = 0.01),
            size = 2.5,
            color = "grey45") +
-  labs(title = "Tasa Promedio de Crecimiento de la Economía",
-       subtitle = "Por año durante el sexenio de cada Presidente.",
+  labs(title = "Tasa Anual Promedio de Crecimiento de la Economía Mexicana",
+       subtitle = "Durante el sexenio de cada uno de los últimos 5 Presidentes.",
        x = NULL,
        y = "Tasa anual promedio",
        caption = "Fuente: INEGI, 
