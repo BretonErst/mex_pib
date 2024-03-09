@@ -5,17 +5,19 @@
 ###############################################
 
 
-# Librerías
+## Librerías
 library(tidyverse)
 
 
-# Adquisición de datos
+## Adquisición de datos
+# url del archivo fuente
 url <- 
   "https://www.inegi.org.mx/contenidos/programas/pib/2018/tabulados/des/pibt_cte_valor.xlsx"
 
-
+# descarga del archivo
 download.file(url, "file.xlsx")
 
+# importación del archivo
 df00 <- 
   readxl::read_xlsx(path = "file.xlsx", 
                     skip = 4,
@@ -23,7 +25,8 @@ df00 <-
 
 
 
-
+## Limpieza de datos
+# renglones de interés
 reng_interes <- 
   c("Producto interno bruto, a precios de mercado",
     "Actividades primarias",
@@ -31,17 +34,19 @@ reng_interes <-
     "Actividades terciarias")
 
 
-# Limpieza de datos
+# conversión a formato tidy
 df01 <-   
   df00 |> 
   filter(Denominación %in% reng_interes) |> 
-  select(-2) |> 
-  pivot_longer(cols = 2:123, names_to = "col", values_to = "valor") |> 
+  pivot_longer(cols = 3:ncol(df00), 
+               names_to = "col", 
+               values_to = "val") |> 
   janitor::clean_names() |> 
   mutate(denominacion = if_else(denominacion == "Producto interno bruto, a precios de mercado",
                                 "Producto interno bruto",
                                 denominacion),
-         valor = as.numeric(valor)) |> 
+         val = as.numeric(val)) |> 
+  select(-2) |> 
   nest(.by = denominacion)
 
   
@@ -49,21 +54,25 @@ df01 <-
 prep_data <- function(df){
   df |> 
     mutate(fecha_inicio = seq.Date(from = as.Date("1993-01-01"),
-                                   along.with = valor,
+                                   along.with = val,
                                    by = "quarter"),
            fecha_final = fecha_inicio + months(3) - days(1),
-           trimestre = quarter(fecha_final, type = "year.quarter"))
+           trimestre = quarter(fecha_final, 
+                               type = "year.quarter"))
 }
 
-# incorporación con data
+
+# incorporación con data con semestre y fecha
 df02 <- 
   df01 |> 
   mutate(fechas = map(data, prep_data)) |> 
   unnest(fechas) |> 
-  select(-c(col, data))
+  select(-c(col, data)) |> 
+  rename(valor = val)
   
 
-# remover archivos
+## Labores finales
+# remoción de archivos
 file.remove("file.xlsx")
 
 rm(df00)
