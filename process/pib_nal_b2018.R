@@ -75,7 +75,7 @@ df_pib |>
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Miles de millones de pesos a precios de 2018. 
            Series desestacionalizadas.<br>
-           Modelaje y visualización: Juan L. Bretón, PMP | @jluisbreton" ) +
+           Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   theme_breton() +
   theme(legend.position = "none") +
   scale_color_manual(name = NULL,
@@ -144,8 +144,8 @@ df_pib_escala |>
        y = "Índice 0 = Inicio de cada sexenio",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Precios de 2018. 
-           Series desestacionalizadas.<br>
-           Modelaje y visualización: Juan L. Bretón, PMP | @jluisbreton" ) +
+           Series desestacionalizadas. Última observación 4 trim 2023.<br>
+           Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   theme_breton() +
   theme(legend.position = "top") +
   scale_color_manual(name = "Presidente",
@@ -178,7 +178,7 @@ tasa_anual <-
   
 tasa_anual |> 
   as_tibble() |> 
-  knitr::kable(col.names = "Tasa Año Anterior",
+  knitr::kable(col.names = "Tasa 12 Meses Anteriores",
                digits = 4)
 
 
@@ -252,8 +252,8 @@ df_tasa_sexenal |>
        y = "Tasa anual promedio",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Precios de 2018. 
-           Series desestacionalizadas.<br>
-           Modelaje y visualización: Juan L. Bretón, PMP | @jluisbreton" ) +
+           Series desestacionalizadas. Última observación 4 trim 2023.<br>
+           Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   scale_color_manual(values = c("#34495E", "#F39C12", "#16A085", 
                                 "#8E44AD", "#C0392B")) +
   theme_breton() +
