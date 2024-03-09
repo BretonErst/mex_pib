@@ -1,5 +1,5 @@
 ## Análisis de PIB de México
 
-Datos recuperados de https://www.inegi.org.mx/programas/pib/2013/#Datos_abiertos
+Datos recuperados de https://www.inegi.org.mx/temas/pib/#tabulados
 
-https://www.inegi.org.mx/programas/pib/2013/#Tabulados
+Actualizado a base 20218.
