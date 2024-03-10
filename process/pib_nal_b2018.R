@@ -60,6 +60,19 @@ df_pib |>
                   color = "tendencia"),
               linewidth = 0.35, 
               method = "lm") +
+  geom_vline(xintercept = df_pib |> 
+               filter(trimestre == 2018.2) |>
+               pull(trimestre),
+            color = "grey30",
+            alpha = 0.5) +
+  annotate(geom = "text",
+           label = "Elección de López Obrador",
+           x = 2018.2 - 0.5, 
+           y = 19050000,
+           family = "Encode Sans Condensed",
+           color = "grey30",
+           size = 3.0,
+           angle = 90) +
   # annotate(geom = "text",
   #          label = paste("Diferencia ", 
   #                        scales::percent(dif_tend, accuracy = 0.1)),
