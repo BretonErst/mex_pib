@@ -87,7 +87,7 @@ df_pib |>
        y = "PIB (Miles de millones de pesos)",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Miles de millones de pesos a precios de 2018. 
-           Series desestacionalizadas.<br>
+           Series desestacionalizadas. Último registro 1T 2024.<br>
            Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   theme_breton() +
   theme(legend.position = "none") +
@@ -157,7 +157,7 @@ df_pib_escala |>
        y = "Índice 0 = Inicio de cada sexenio",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Precios de 2018. 
-           Series desestacionalizadas. Última observación 4 trim 2023.<br>
+           Series desestacionalizadas. Última observación 1T 2024.<br>
            Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   theme_breton() +
   theme(legend.position = "top") +
@@ -238,26 +238,26 @@ df_tasa_sexenal <-
 
 df_tasa_sexenal |> 
   ggplot(aes(x = presidente, y = tasa_promedio, color = presidente)) +
-  geom_point(size = 3.5, 
+  geom_point(size = 5.5, 
              alpha = 0.75) +
   geom_segment(aes(x = presidente, xend = presidente, 
                    y = 0, yend = tasa_promedio),
                alpha = 0.4,
-               linewidth = 2.3) +
+               linewidth = 4.5) +
   geom_text(aes(label = scales::percent(tasa_promedio, accuracy = 0.01)),
             family = "Encode Sans Condensed",
-            size = 2.8,
-            vjust = -1.00,
+            size = 3.8,
+            vjust = -0.50,
             hjust = -0.25,
             color = "grey10") +
   geom_hline(yintercept = mean(df_tasa_sexenal$tasa_promedio),
-             color = "grey60", linewidth = 2.5, alpha = 0.25) +
+             color = "grey60", linewidth = 4.5, alpha = 0.25) +
   annotate(geom = "text",
            x = 0.65, 
            y = mean(df_tasa_sexenal$tasa_promedio),
            label = scales::percent(mean(df_tasa_sexenal$tasa_promedio),
                                    accuracy = 0.01),
-           size = 2.5,
+           size = 3.5,
            color = "grey45") +
   labs(title = "Tasa Anual Promedio de Crecimiento de la Economía Mexicana",
        subtitle = "Durante el sexenio de cada uno de los últimos 5 Presidentes.",
@@ -265,7 +265,7 @@ df_tasa_sexenal |>
        y = "Tasa anual promedio",
        caption = "Fuente: INEGI, 
            Producto interno bruto trimestral. Precios de 2018. 
-           Series desestacionalizadas. Última observación 4 trim 2023.<br>
+           Series desestacionalizadas. Última observación 1T 2024.<br>
            Modelaje y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   scale_color_manual(values = c("#34495E", "#F39C12", "#16A085", 
                                 "#8E44AD", "#C0392B")) +
